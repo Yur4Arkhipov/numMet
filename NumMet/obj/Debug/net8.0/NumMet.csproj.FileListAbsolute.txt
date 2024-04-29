@@ -1,0 +1,14 @@
+D:\Projects\university\numMet\NumMet\bin\Debug\net8.0\NumMet.exe
+D:\Projects\university\numMet\NumMet\bin\Debug\net8.0\NumMet.deps.json
+D:\Projects\university\numMet\NumMet\bin\Debug\net8.0\NumMet.runtimeconfig.json
+D:\Projects\university\numMet\NumMet\bin\Debug\net8.0\NumMet.dll
+D:\Projects\university\numMet\NumMet\bin\Debug\net8.0\NumMet.pdb
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\NumMet.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\NumMet.AssemblyInfoInputs.cache
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\NumMet.AssemblyInfo.cs
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\NumMet.csproj.CoreCompileInputs.cache
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\NumMet.dll
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\refint\NumMet.dll
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\NumMet.pdb
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\NumMet.genruntimeconfig.cache
+D:\Projects\university\numMet\NumMet\obj\Debug\net8.0\ref\NumMet.dll
