@@ -8,24 +8,26 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\yuraa\\.nuget\\packages\\": {}
+    "C:\\Users\\Home\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\university\\numMet\\NumMet\\NumMet.csproj",
+      "projectUniqueName": "D:\\university\\ChMet\\numMet\\NumMet\\NumMet.csproj",
       "projectName": "NumMet",
-      "projectPath": "D:\\Projects\\university\\numMet\\NumMet\\NumMet.csproj",
-      "packagesPath": "C:\\Users\\yuraa\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\university\\numMet\\NumMet\\obj\\",
+      "projectPath": "D:\\university\\ChMet\\numMet\\NumMet\\NumMet.csproj",
+      "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
+      "outputPath": "D:\\university\\ChMet\\numMet\\NumMet\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\yuraa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -38,6 +40,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -59,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

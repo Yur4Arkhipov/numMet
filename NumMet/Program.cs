@@ -18,15 +18,29 @@ double[,] matrixDop = {{1,3,-2, 0, -2},
                     {0,1,-2,5,3},
                     {-2,-3,2,3,4}};
 double[] vectorDop = {0.5,5.4,5.0,7.5,3.3};
-        
+
+double[,] matrixToSquare = {{2,1,4},
+                            {1,1,3},
+                            {4,3,14}};
+double[] vectorToSquare = {16,12,52};
+
+double[,] matrixToProgonka = {{2,-1,0},
+                              {5,4,2},
+                              {0,1,-3}};
+double[] vectorToProgonka = {3,6,2};
+
+
 Matrix A1 = new Matrix(matrix);
 Vector B1 = new Vector(vector);
 Matrix A2 = new Matrix(matrix);
 Vector B2 = new Vector(vector);
-Matrix A3 = new Matrix(matrix);
-Vector B3 = new Vector(vector);
+Matrix A3 = new Matrix(matrixToSquare);
+Vector B3 = new Vector(vectorToSquare);
 Vector BDop = new Vector(vectorDop);
 Matrix ADOp = new Matrix(matrixDop);
+Vector progonkaVector = new Vector(vectorToProgonka);
+Matrix progonkaMatrix = new Matrix(matrixToProgonka);
+
 Matrix.PrintMatrix(A1, "draft");
 System.Console.Write("Vector: ");
 foreach (var item in vector) {
@@ -43,4 +57,7 @@ Console.WriteLine(SuccessiveApproximationMethod.ToString());
 System.Console.WriteLine("Square roots:");
 Vector SquareRootsMethod = LinearFn.SquareRootsMethod(A3, B3);
 Console.WriteLine(SquareRootsMethod.ToString());
+System.Console.WriteLine("Progonka:");
+Vector ProgonkaMethod = LinearFn.ProgonkaMethod(progonkaMatrix, progonkaVector);
+Console.WriteLine(ProgonkaMethod.ToString());
 

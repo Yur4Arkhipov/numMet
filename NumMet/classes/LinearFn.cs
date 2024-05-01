@@ -99,10 +99,23 @@ class LinearFn {
         }
 
     // метод квадратных корней
-   public static Vector SquareRootsMethod(Matrix matrix, Vector vector) {
+    public static Vector SquareRootsMethod(Matrix matrix, Vector vector) {
+        //проверка на корректность входных данных
+        if (matrix.Columns != vector.Size) {
+            throw new ArgumentException("Несоответствие количества аргументов и вектора");
+        };
         int n = matrix.Rows;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i,j] != matrix[j,i]) {
+                    throw new ArgumentException("Матрица не симметричаная");
+                }
+            }
+        }
+        // L одно и то же, что T'
         var L = new Matrix(new double[n, n]);
         var y = new Vector(new double[n]);
+        // вектор ответов
         var x = new Vector(new double[n]);
 
         for (int i = 0; i < n; i++) {
@@ -123,7 +136,7 @@ class LinearFn {
             }
         }
 
-        // Solving Ly = b
+        // Решение Ly = b
         for (int i = 0; i < n; i++) {
             double sum = 0.0;
             for (int j = 0; j < i; j++) {
@@ -132,7 +145,8 @@ class LinearFn {
             y[i] = (vector[i] - sum) / L[i, i];
         }
 
-        // Solving L^T x = y
+        // Решение L^T x = y
+        // то есть транспонируем матрицу L(T'), получаем матрицу T и решаем ее
         var LT = L.Trans();
         for (int i = n - 1; i >= 0; i--) {
             double sum = 0.0;
@@ -145,4 +159,48 @@ class LinearFn {
         return x;
     }
 
+    // метод прогонки (для трехдиагональной матрицы)
+    public static Vector ProgonkaMethod(Matrix matrix, Vector vector) {E
+         //проверка на корректность входных данных
+        if (matrix.Columns != vector.Size) {
+            throw new ArgumentException("Несоответствие количества аргументов и вектора");
+        };
+        
+        int n = matrix.Rows;
+        Vector result = new Vector(n);
+
+        double[] alpha = new double[n];
+        double[] beta = new double[n];
+        double y, c, d;
+        /* b1 c1 0  0
+           a2 b2 c2 0
+           0  a3 b3 c3
+           0  0  a4 b4  */
+        // y1 = b1 (b - элемент главной диагонали)
+        // alpha1 = -c1 / y1 (c1 - диагональ выше главной)
+        // beta1 = d1 / y1 (d1 - элемент вектора)
+        y = matrix[0,0];
+        c = matrix[0,1];
+        d = vector[0];
+        alpha[0] = -c / y;
+        beta[0] = d / y;
+
+        for (int i = 1; i < n; i++) {
+            // yi = bi + ai*alpha{i-1}
+            // alphai = -ci / yi
+            // betai = (di - alphai*beta{i-1}) / yi
+            y = matrix[i, i] + matrix[i, i - 1] * alpha[i - 1];
+            if (i + 1 < n) {
+                alpha[i] = -matrix[i, i + 1] / y;   
+            }
+            beta[i] = (vector[i] - matrix[i, i - 1] * beta[i - 1]) / y;
+        }
+        result[n - 1] = beta[n - 1];
+
+        for (int i = n - 2; i >= 0; i--) {
+            result[i] = alpha[i] * result[i + 1] + beta[i];
+        }
+
+        return result;
+    }    
 }
