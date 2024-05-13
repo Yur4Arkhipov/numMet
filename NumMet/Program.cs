@@ -61,12 +61,24 @@ System.Console.WriteLine("Progonka:");
 Vector ProgonkaMethod = LinearFn.ProgonkaMethod(progonkaMatrix, progonkaVector);
 Console.WriteLine(ProgonkaMethod.ToString()); */
 
-Vector xx = new Vector(new double[] { 1, 2, 3, 4, 5 });
-Vector yy = new Vector(new double[] { 6, 4.3, 9.8, 1.6, 25 });
-CubicSpline spline = new CubicSpline(xx, yy);
+Vector xx = new Vector(new double[] { 1, 2.2, 3, 5, 7});
+Vector yy = new Vector(new double[] { 6, 4.3, 9.8, 1.6, 2.9});
+Spline spline = new Spline(xx, yy);
 spline.solveParameters();
-for (double valueX = 1.0; valueX <= 5; valueX += 0.1) {
-    double valueY = spline.getValue(valueX);
-    Console.WriteLine($" Value x: {valueX} Value y: {valueY} ");
+List<double> arrX = new List<double>(1);
+List<double> arrY = new List<double>(1);
+for (double i = 1; i <= 7; i += 0.1) {
+    arrX.Add(i);
 }
+for (double valueX = 1; valueX <= 7; valueX += 0.1) {
+    double valueY = spline.getValue(valueX);
+    arrY.Add(valueY);
+    // Console.WriteLine($" Value x: {valueX} Value y: {valueY}");
+}
+System.Console.WriteLine($"X: {string.Join(",", arrX)}");
+System.Console.WriteLine();
+System.Console.WriteLine($"Y: {string.Join(",", arrY)}");
+
+System.Console.WriteLine(arrX.Count);
+System.Console.WriteLine(arrY.Count);
 
