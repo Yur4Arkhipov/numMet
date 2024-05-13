@@ -16,6 +16,31 @@ class Matrix {
             for (int j = 0; j < columns; j++)
                 data[i, j] = mm[i, j];
     }
+
+    public Matrix(Vector low, Vector sr, Vector up) {
+        if (low.Size != sr.Size || sr.Size != up.Size)
+            throw new ArgumentException("Несоответствие количества аргументов и вектора");
+        int n = low.Size;
+        this.rows = n;
+        this.columns = n;
+        data = new double[n, n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    data[i, j] = sr[i];
+                }
+                else if (i == j - 1) {
+                    data[i, j] = low[i];
+                }
+                else if (i == j + 1) {
+                    data[i, j] = up[i];
+                }
+                else {
+                    data[i, j] = 0;
+                }
+            }
+        }
+    }
     public int Rows { get { return rows; } }
     public int Columns { get { return columns; } }
 

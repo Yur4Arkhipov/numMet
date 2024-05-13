@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5k1EHlNUqwpB3Ld6P0086ai8Hp6s3Fz1D1GDsCN8i8f76huZkaw4LeRAUc7By0cWUJJSpKoKUsaKl5Kp4ZdgfA==",
+  "dgSpecHash": "vBvRTyHVzCFzkx0sFXxCIvzP0Rt8rut4QtgqxYXdrmDC5ykJTFMHU5Xb3GDIPJNbcEmfiu0IHbH7bNscZ/PllA==",
   "success": true,
-  "projectFilePath": "D:\\university\\ChMet\\numMet\\NumMet\\NumMet.csproj",
+  "projectFilePath": "/workspaces/numMet/NumMet/NumMet.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

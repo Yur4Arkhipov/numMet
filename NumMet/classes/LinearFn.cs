@@ -160,8 +160,8 @@ class LinearFn {
     }
 
     // метод прогонки (для трехдиагональной матрицы)
-    public static Vector ProgonkaMethod(Matrix matrix, Vector vector) {E
-         //проверка на корректность входных данных
+    public static Vector ProgonkaMethod(Matrix matrix, Vector vector) {
+        //проверка на корректность входных данных
         if (matrix.Columns != vector.Size) {
             throw new ArgumentException("Несоответствие количества аргументов и вектора");
         };
