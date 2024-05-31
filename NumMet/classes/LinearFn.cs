@@ -203,4 +203,64 @@ class LinearFn {
 
         return result;
     }    
+
+    public static void ModifiedGramSchmidt(Matrix A, out Matrix Q, out Matrix R) {
+        int m = A.Rows;
+        int n = A.Columns;
+
+        Q = new Matrix(m, n);
+        R = new Matrix(n, n);
+
+        // Итерация по каждому столбцу матрицы A
+        for (int j = 0; j < n; j++) {
+            // Вычисление j-ого столбца матрицы Q
+            Vector temp = A.GetColumn(j);
+
+            // Ортогонализация текущего столбца относительно предыдущих столбцов
+            for (int k = 0; k < j; k++) {
+                // Скалярное произведение q_k и a_j
+                double dotProduct = Q.GetColumn(k) * A.GetColumn(j);
+
+                // Вычитание проекции текущего столбца на уже ортогонализированные столбцы
+                temp -= dotProduct * Q.GetColumn(k);
+            }
+
+            // Нормализация j-ого столбца матрицы Q
+            double norm = Math.Sqrt(temp * temp);
+            Vector normalizedTemp = new Vector(temp.Size);
+            for (int i = 0; i < temp.Size; i++)
+            {
+                normalizedTemp[i] = temp[i] / norm;
+            }
+            Q.SetColumn(j, normalizedTemp);
+
+            // Вычисление j-ой строки матрицы R
+            for (int k = 0; k <= j; k++) {
+                // Скалярное произведение q_k и a_j
+                double dotProduct = Q.GetColumn(k) * A.GetColumn(j);
+                R[k, j] = dotProduct;
+            }
+        }
+    }
+
+    public static Vector Solve_ModifiedGramSchmidt(Matrix A, Vector B)
+    {
+        ModifiedGramSchmidt(A, out var Q, out var R);
+        return ObHod(R, Q.Trans() * B);
+    }
+
+    public static Vector ObHod(Matrix L, Vector Y)
+    {
+        int n = L.Rows;
+        Vector X = new(n);
+        for (int i = n - 1; i >= 0; i--)
+        {
+            double sum = 0.0;
+            for (int j = i + 1; j < n; j++)
+                sum += L[i, j] * X[j];
+            X[i] = (Y[i] - sum) / L[i, i];
+        }
+
+        return X;
+    }
 }

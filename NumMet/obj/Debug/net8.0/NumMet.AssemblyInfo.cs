@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NumMet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+671d88ff959b04951530325adf43d5976ec4c2af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5271b6201cb9c41ecb156f924edbb9a8ee190a78")]
 [assembly: System.Reflection.AssemblyProductAttribute("NumMet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NumMet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -75,6 +75,17 @@ class Matrix {
         }
         return null;
     }
+    public double Norma() {
+        double sum = 0.0;
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                sum += data[i, j] * data[i, j];
+            }
+        }
+        return Math.Sqrt(sum);
+    }
     public bool SetRow(int index, Vector r) {
         if (index < 0 || index > rows) return false;
         if (r.Size != columns) return false;
