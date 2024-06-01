@@ -24,6 +24,12 @@ class Integral {
         return previousFunctionValue;
     }
 
+    /// Метод трапеций для вычисления определенного интеграла.
+    /// a - Нижний предел интегрирования.
+    /// b - Верхний предел интегрирования.
+    /// e - Точность вычисления.
+    /// f - Функция, для которой вычисляется интеграл.
+    /// Значение определенного интеграла.
     public static double TrapezoidMethod(double a, double b, double eps, Func<double, double> f) {
         int n = 1;
         double h = (b - a) / n;
@@ -34,8 +40,9 @@ class Integral {
         do {
             n *= 2;
             h = (b - a) / n;
-            for (int i = 1; i < n; i += 2) {
-                sum += f(a + i * h) + f(a + (i + 1) * h);
+            sum = f(a) + f(b); // включаем в сумму значения функции в точках a и b
+            for (int i = 1; i < n; i++) {
+                sum += 2 * f(a + i * h);
             }
             difference = sum * (h / 2) - previousFunctionValue;
             previousFunctionValue = sum * (h / 2);

@@ -40,63 +40,63 @@ class LinearFn {
 
     //решение СЛАУ методом последовательных приближений
     public static Vector SuccessiveApproximationMethod(Matrix A, Vector B) {
-            if (A.Rows != A.Columns) return null;
-            if (A.Rows != B.Size) return null;
+        if (A.Rows != A.Columns) return null;
+        if (A.Rows != B.Size) return null;
 
-            int n = A.Rows;
-            double eps = 0.00000001;
-            int max;
-            double tmp;
+        int n = A.Rows;
+        double eps = 0.00000001;
+        int max;
+        double tmp;
 
+        for (int j = 0; j < n; j++)
+        {
+            max = j;
+            for (int i = j + 1; i < n; i++)
+            {
+                if (Math.Abs(A[i, j]) > Math.Abs(A[max, j])) { max = i; };
+            }
+
+            if (max != j)
+            {
+                Vector temp = A.GetRow(max); A.SetRow(max, A.GetRow(j)); A.SetRow(j, temp);
+                tmp = B[max]; B[max] = B[j]; B[j] = tmp;
+
+            }
+            if (Math.Abs(A[j, j]) < eps) return null;
+
+        }
+
+        Vector beta = new Vector(n);
+        for (int i = 0; i < beta.Size; i++)
+        {
+            beta[i] = B[i] / A[i, i];
+        }
+
+        Matrix alpha = new Matrix(n, n);
+        for (int i = 0; i < n; i++)
+        {
             for (int j = 0; j < n; j++)
             {
-                max = j;
-                for (int i = j + 1; i < n; i++)
-                {
-                    if (Math.Abs(A[i, j]) > Math.Abs(A[max, j])) { max = i; };
-                }
-
-                if (max != j)
-                {
-                    Vector temp = A.GetRow(max); A.SetRow(max, A.GetRow(j)); A.SetRow(j, temp);
-                    tmp = B[max]; B[max] = B[j]; B[j] = tmp;
-
-                }
-                if (Math.Abs(A[j, j]) < eps) return null;
-
+                if (i != j) alpha[i, j] = A[i, j] / A[i, i];
+                else alpha[i, j] = 0;
             }
-
-            Vector beta = new Vector(n);
-            for (int i = 0; i < beta.Size; i++)
-            {
-                beta[i] = B[i] / A[i, i];
-            }
-
-            Matrix alpha = new Matrix(n, n);
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    if (i != j) alpha[i, j] = A[i, j] / A[i, i];
-                    else alpha[i, j] = 0;
-                }
-                beta[i] = B[i] / A[i, i];
-            }
-
-            Vector prev_x = beta;
-            Vector current_x;
-            Vector delta;
-
-            do
-            {
-                current_x = beta - alpha * prev_x;
-                delta = current_x - prev_x;
-                prev_x = current_x;
-            }
-            while (delta.Norma1() > eps);
-
-            return prev_x;
+            beta[i] = B[i] / A[i, i];
         }
+
+        Vector prev_x = beta;
+        Vector current_x;
+        Vector delta;
+
+        do
+        {
+            current_x = beta - alpha * prev_x;
+            delta = current_x - prev_x;
+            prev_x = current_x;
+        }
+        while (delta.Norma1() > eps);
+
+        return prev_x;
+    }
 
     // метод квадратных корней
     public static Vector SquareRootsMethod(Matrix matrix, Vector vector) {
@@ -159,6 +159,19 @@ class LinearFn {
         return x;
     }
 
+    public static Vector ReverseHod(Matrix L, Vector Y) {
+        int n = L.Rows;
+        Vector X = new(n);
+        for (int i = n - 1; i >= 0; i--) {
+            double sum = 0.0;
+            for (int j = i + 1; j < n; j++)
+                sum += L[i, j] * X[j];
+            X[i] = (Y[i] - sum) / L[i, i];
+        }
+
+        return X;
+    }
+
     // метод прогонки (для трехдиагональной матрицы)
     public static Vector ProgonkaMethod(Matrix matrix, Vector vector) {
         //проверка на корректность входных данных
@@ -204,7 +217,7 @@ class LinearFn {
         return result;
     }    
 
-    public static void ModifiedGramSchmidt(Matrix A, out Matrix Q, out Matrix R) {
+    public static void GramSchmidt(Matrix A, out Matrix Q, out Matrix R) {
         int m = A.Rows;
         int n = A.Columns;
 
@@ -228,8 +241,7 @@ class LinearFn {
             // Нормализация j-ого столбца матрицы Q
             double norm = Math.Sqrt(temp * temp);
             Vector normalizedTemp = new Vector(temp.Size);
-            for (int i = 0; i < temp.Size; i++)
-            {
+            for (int i = 0; i < temp.Size; i++) {
                 normalizedTemp[i] = temp[i] / norm;
             }
             Q.SetColumn(j, normalizedTemp);
@@ -243,24 +255,8 @@ class LinearFn {
         }
     }
 
-    public static Vector Solve_ModifiedGramSchmidt(Matrix A, Vector B)
-    {
-        ModifiedGramSchmidt(A, out var Q, out var R);
-        return ObHod(R, Q.Trans() * B);
-    }
-
-    public static Vector ObHod(Matrix L, Vector Y)
-    {
-        int n = L.Rows;
-        Vector X = new(n);
-        for (int i = n - 1; i >= 0; i--)
-        {
-            double sum = 0.0;
-            for (int j = i + 1; j < n; j++)
-                sum += L[i, j] * X[j];
-            X[i] = (Y[i] - sum) / L[i, i];
-        }
-
-        return X;
+    public static Vector Solve_GramSchmidt(Matrix A, Vector B) {
+        GramSchmidt(A, out var Q, out var R);
+        return ReverseHod(R, Q.Trans() * B);
     }
 }

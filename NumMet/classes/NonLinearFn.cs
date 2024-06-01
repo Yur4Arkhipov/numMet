@@ -84,4 +84,16 @@ class NonLinearFn {
         Console.WriteLine($"Count of iteration: {countIteration}");
         return xCurrent;
     }
+
+    //метод хорд
+    public static double ChordMethod(double a, double b, double eps, Func<double,double> func) {
+        double fa = func(a);
+        double fb = func(b);
+        if (fa * fb > 0) return double.NaN;
+        while (Math.Abs(b - a) > eps) {
+            a -= (b - a) * func(a) / (func(b) - func(a));
+            b -= (a - b) * func(b) / (func(a) - func(b));            
+        }
+        return (a + b) / 2;
+    }
 }
